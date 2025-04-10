@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English-Spanish Vocabulary Practice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 10 L33 25 L30 40 L27 25 Z' fill='%2378c26d'/%3E%3Cpath d='M30 10 C28 10 26 12 26 14 C26 16 28 18 30 18 C32 18 34 16 34 14 C34 12 32 10 30 10 Z' fill='%2378c26d'/%3E%3Cpath d='M26 22 L22 22 L24 26 L26 26 Z' fill='%2378c26d'/%3E%3Cpath d='M34 30 L38 30 L36 34 L34 34 Z' fill='%2378c26d'/%3E%3Cpath d='M24 36 L20 36 L22 40 L24 40 Z' fill='%2378c26d'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-position: center;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid #78c26d;
+            position: relative;
+        }
+        .container::before, .container::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 80'%3E%3Cpath d='M25 5 L28 20 L25 35 L22 20 Z' fill='%2378c26d'/%3E%3Cpath d='M25 5 C23 5 21 7 21 9 C21 11 23 13 25 13 C27 13 29 11 29 9 C29 7 27 5 25 5 Z' fill='%2378c26d'/%3E%3Cpath d='M21 17 L17 17 L19 21 L21 21 Z' fill='%2378c26d'/%3E%3Cpath d='M29 25 L33 25 L31 29 L29 29 Z' fill='%2378c26d'/%3E%3Cpath d='M19 31 L15 31 L17 35 L19 35 Z' fill='%2378c26d'/%3E%3Cpath d='M25 35 L25 40 C25 42 27 45 25 50 C23 45 25 42 25 40 Z' fill='%23a67c52'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+        }
+        .container::before {
+            top: -40px;
+            left: 20px;
+        }
+        .container::after {
+            top: -40px;
+            right: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .question-container {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .word {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .option {
+            padding: 15px;
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .feedback {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            min-height: 27px;
+        }
+        .next-btn {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background-color: #78c26d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 35px;
+        }
+        .next-btn:before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 2 L11 8 L10 14 L9 8 Z' fill='%23ffffff'/%3E%3Cpath d='M7 6 L5 6 L6 8 L7 8 Z' fill='%23ffffff'/%3E%3Cpath d='M13 10 L15 10 L14 12 L13 12 Z' fill='%23ffffff'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+        }
+        .next-btn:hover {
+            background-color: #5da152;
+            transform: scale(1.05);
+        }
+        .score {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            position: relative;
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: #f8f9fa;
+            border-radius: 20px;
+            border: 2px dashed #78c26d;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .score:before, .score:after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 25px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 25'%3E%3Cpath d='M7.5 2 L8.5 8 L7.5 14 L6.5 8 Z' fill='%2378c26d'/%3E%3Cpath d='M5 6 L3 6 L4 8 L5 8 Z' fill='%2378c26d'/%3E%3Cpath d='M10 10 L12 10 L11 12 L10 12 Z' fill='%2378c26d'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            top: -15px;
+        }
+        .score:before {
+            left: 10px;
+        }
+        .score:after {
+            right: 10px;
+        }
+        .language-indicator {
+            text-align: center;
+            margin-bottom: 10px;
+            font-style: italic;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>English-Spanish Vocabulary Practice</h1>
+        
+        <div class="question-container">
+            <div class="language-indicator" id="language-indicator">Question in English</div>
+            <div class="word" id="word">Loading...</div>
+            
+            <div class="options-container" id="options-container">
+                <!-- Options will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="feedback" id="feedback"></div>
+            
+            <button class="next-btn" id="next-btn">Next Word</button>
+        </div>
+        
+        <div class="score" id="score">Score: 0/0</div>
+    </div>
+
+    <script>
+        // Vocabulary data with English and Spanish pairs
+        const vocabulary = [
+            {
+                english: "To give a hand",
+                spanish: "Dar un golpe de mano"
+            },
+            {
+                english: "If I were you",
+                spanish: "Si yo fuera tu"
+            },
+            {
+                english: "Come as a surprise",
+                spanish: "Ha sido una sorpresa"
+            },
+            {
+                english: "Had better",
+                spanish: "Más vale"
+            },
+            {
+                english: "Get rid of",
+                spanish: "Deshacerse de"
+            },
+            {
+                english: "Hear",
+                spanish: "Oír"
+            },
+            {
+                english: "Listen",
+                spanish: "Escuchar"
+            },
+            {
+                english: "Pretty",
+                spanish: "Bonito"
+            },
+            {
+                english: "In a row",
+                spanish: "En fila"
+            },
+            {
+                english: "Comes from",
+                spanish: "Proviene de"
+            },
+            {
+                english: "Booth",
+                spanish: "Cabina"
+            },
+            {
+                english: "Faid",
+                spanish: "Desvanecido"
+            },
+            {
+                english: "Useful",
+                spanish: "Útil"
+            },
+            {
+                english: "Go to",
+                spanish: "Ir a"
+            },
+            {
+                english: "Away",
+                spanish: "Lejos"
+            },
+            {
+                english: "Hazard",
+                spanish: "Peligro"
+            },
+            {
+                english: "Choking",
+                spanish: "Asfixia"
+            },
+            {
+                english: "Railing",
+                spanish: "Barandilla"
+            },
+            {
+                english: "Sightseeing",
+                spanish: "Turismo"
+            },
+            {
+                english: "Backyard",
+                spanish: "Patio trasero"
+            },
+            {
+                english: "Belongings",
+                spanish: "Pertenencias"
+            },
+            {
+                english: "Blind",
+                spanish: "Ciego"
+            },
+            {
+                english: "Features",
+                spanish: "Características"
+            },
+            {
+                english: "Ivory",
+                spanish: "Marfil"
+            },
+            {
+                english: "Tusks",
+                spanish: "Colmillos"
+            },
+            {
+                english: "Grasp",
+                spanish: "Comprender"
+            },
+            {
+                english: "In order to",
+                spanish: "Para"
+            },
+            {
+                english: "In fact",
+                spanish: "De hecho"
+            },
+            {
+                english: "Put to use",
+                spanish: "Poner en uso"
+            },
+            {
+                english: "Take care",
+                spanish: "Tener cuidado"
+            },
+            {
+                english: "To get rid of",
+                spanish: "Deshacerse de"
+            },
+            {
+                english: "Have to go at",
+                spanish: "Tener que ir a"
+            },
+            {
+                english: "Settle",
+                spanish: "Establecerse"
+            },
+            {
+                english: "Deep",
+                spanish: "Profundo"
+            },
+            {
+                english: "Wide",
+                spanish: "Ancho"
+            },
+            {
+                english: "Great",
+                spanish: "Genial"
+            },
+            {
+                english: "Been",
+                spanish: "Estado"
+            },
+            {
+                english: "Suits",
+                spanish: "Trajes"
+            },
+            {
+                english: "Commute",
+                spanish: "Desplazamiento"
+            },
+            {
+                english: "Against",
+                spanish: "Contra"
+            },
+            {
+                english: "Slippers",
+                spanish: "Zapatillas"
+            },
+            {
+                english: "Current",
+                spanish: "Actual"
+            },
+            {
+                english: "Fall down",
+                spanish: "Caerse"
+            },
+            {
+                english: "When it comes to",
+                spanish: "Cuando se trata de"
+            },
+            {
+                english: "Break down",
+                spanish: "Descomponer"           },
+            {
+                english: "Cut down",
+                spanish: "Reducir"
+            },
+            {
+                english: "Wandering",
+                spanish: "Vagando"
+            },
+            {
+                english: "Avoid",
+                spanish: "Evitar"
+            },
+            {
+                english: "Crowds",
+                spanish: "Multitudes"
+            },
+            {
+                english: "Spare",
+                spanish: "De repuesto"
+            },
+            {
+                english: "Forget",
+                spanish: "Olvidar"
+            },
+            {
+                english: "Suitable",
+                spanish: "Adecuado"
+            },
+            {
+                english: "Relative",
+                spanish: "Pariente"
+            },
+            {
+                english: "Even though",
+                spanish: "Aunque"
+            },
+            {
+                english: "Despite",
+                spanish: "A pesar de"
+            },
+            {
+                english: "No matter",
+                spanish: "No importa"
+            },
+            {
+                english: "Thought",
+                spanish: "Pensamiento"
+            },
+            {
+                english: "Far",
+                spanish: "Lejos"
+            },
+            {
+                english: "Enough",
+                spanish: "Suficiente"
+            },
+            {
+                english: "Wallet",
+                spanish: "Cartera"
+            },
+            {
+                english: "Loan",
+                spanish: "Préstamo"
+            },
+            {
+                english: "Borrow",
+                spanish: "Pedir prestado"
+            },
+            {
+                english: "Withdraws",
+                spanish: "Retira"
+            },
+            {
+                english: "Afford",
+                spanish: "Permitirse"
+            },
+            {
+                english: "Meal",
+                spanish: "Comida"
+            },
+            {
+                english: "Unless",
+                spanish: "A menos que"
+            },
+            {
+                english: "As soon as",
+                spanish: "Tan pronto como"
+            },
+            {
+                english: "Enrolling",
+                spanish: "Inscribirse"
+            },
+            {
+                english: "Relieved",
+                spanish: "Aliviado"
+            },
+            {
+                english: "Handed in",
+                spanish: "Entregado"
+            },
+            {
+                english: "Rude",
+                spanish: "Grosero"
+            },
+            {
+                english: "Behaviour",
+                spanish: "Comportamiento"
+            },
+            {
+                english: "Abroad",
+                spanish: "En el extranjero"
+            },
+            {
+                english: "Disappointing",
+                spanish: "Decepcionante"
+            },
+            {
+                english: "In order to",
+                spanish: "Para"
+            },
+            {
+                english: "So that",
+                spanish: "Para que"
+            },
+            {
+                english: "Still",
+                spanish: "Todavía"
+            },
+            {
+                english: "Chilly",
+                spanish: "Frío"
+            },
+            {
+                english: "Nevertheless",
+                spanish: "Sin embargo"
+            },
+            {
+                english: "Because of",
+                spanish: "Debido a"
+            },
+            {
+                english: "While",
+                spanish: "Mientras"
+            },
+            {
+                english: "Whereas",
+                spanish: "Mientras que"
+            },
+            {
+                english: "Survey",
+                spanish: "Encuesta"
+            },
+            {
+                english: "Support",
+                spanish: "Apoyo"
+            },
+            {
+                english: "Near",
+                spanish: "Cerca"
+            },
+            {
+                english: "Rather than",
+                spanish: "En lugar de"
+            },
+            {
+                english: "Straight face",
+                spanish: "Cara seria"
+            },
+            {
+                english: "Pub",
+                spanish: "Disco"
+            },
+            {
+                english: "Slight",
+                spanish: "Lo mas minimo"
+            },
+            {
+                english: "Reliable",
+                spanish: "Confiable"
+            },
+            {
+                english: "Cheap",
+                spanish: "Barato"
+            },
+            {
+                english: "Complain",
+                spanish: "Quejarse"
+            },
+            {
+                english: "Handsome",
+                spanish: "Guapo"
+            },
+            {
+                english: "Wealthy",
+                spanish: "Adinerado"
+            },
+            {
+                english: "Wist",
+                spanish: "Saber"
+            },
+            {
+                english: "Every",
+                spanish: "Cada"
+            },
+            {
+                english: "Whole",
+                spanish: "Entero"
+            },
+            {
+                english: "Ill",
+                spanish: "Enfermo"
+            },
+            {
+                english: "Childhood",
+                spanish: "Infancia"
+            },
+            {
+                english: "Get along",
+                spanish: "Llevarse bien"
+            },
+            {
+                english: "Work out",
+                spanish: "Resolver"
+            },
+            {
+                english: "Who",
+                spanish: "Quién"
+            },
+            {
+                english: "What",
+                spanish: "Qué"
+            },
+            {
+                english: "When",
+                spanish: "Cuándo"
+            },
+            {
+                english: "Where",
+                spanish: "Dónde"
+            },
+            {
+                english: "How",
+                spanish: "Cómo"
+            },
+            {
+                english: "Which",
+                spanish: "Cuál"
+            },
+            {
+                english: "Attend",
+                spanish: "Asistir"
+            },
+            {
+                english: "Assist",
+                spanish: "Ayudar"
+            },
+            {
+                english: "Roof",
+                spanish: "Techo"
+            },
+            {
+                english: "Both",
+                spanish: "Ambos"
+            },
+            {
+                english: "Neither",
+                spanish: "Ninguno"
+            },
+            {
+                english: "Either",
+                spanish: "Cualquiera"
+            },
+            {
+                english: "Fade",
+                spanish: "Desvanecer"
+            },
+            {
+                english: "Melts",
+                spanish: "Derrite"
+            },
+            {
+                english: "A play",
+                spanish: "Una obra"
+            },
+            {
+                english: "Broadcast",
+                spanish: "Transmisión"
+            },
+            {
+                english: "Often",
+                spanish: "A menudo"
+            },
+            {
+                english: "Hardly ever",
+                spanish: "Casi nunca"
+            },
+            {
+                english: "Ningu",
+                spanish: "Ninguno"
+            },
+            {
+                english: "Wallet",
+                spanish: "Cartera"
+            },
+            {
+                english: "Some",
+                spanish: "Algunos"
+            },
+            {
+                english: "Any",
+                spanish: "Cualquier"
+            },
+            {
+                english: "Amazed",
+                spanish: "Asombrado"
+            },
+            {
+                english: "Amazing",
+                spanish: "Asombroso"
+            },
+            {
+                english: "Tired",
+                spanish: "Cansado"
+            },
+            {
+                english: "Tiring",
+                spanish: "Agotador"
+            },
+            {
+                english: "Annoyed",
+                spanish: "Molesto"
+            },
+            {
+                english: "Chase",
+                spanish: "Perseguir"
+            },
+            {
+                english: "Embarrassed",
+                spanish: "Avergonzado"
+            },
+            {
+                english: "Resigned",
+                spanish: "Resignado"
+            },
+            {
+                english: "Ast board",
+                spanish: "Tablero"
+            },
+            {
+                english: "Astonishing",
+                spanish: "Sorprendente"
+            },
+            {
+                english: "Help yourselfs",
+                spanish: "Sírvanse"
+            },
+            {
+                english: "Each other",
+                spanish: "El uno al otro"
+            },
+            {
+                english: "By myself",
+                spanish: "Por mí mismo"
+            },
+            {
+                english: "One another",
+                spanish: "Unos a otros"
+            },
+            {
+                english: "Can",
+                spanish: "Poder"
+            },
+            {
+                english: "Handle",
+                spanish: "Manejar"
+            },
+            {
+                english: "Blizzard",
+                spanish: "Ventisca"
+            },
+            {
+                english: "Foggy",
+                spanish: "Brumoso"
+            },
+            {
+                english: "Forecast",
+                spanish: "Pronóstico"
+            },
+            {
+                english: "Sights",
+                spanish: "Lugares de interés"
+            },
+            {
+                english: "Leading",
+                spanish: "Líder"
+            },
+            {
+                english: "Regarded",
+                spanish: "Considerado"
+            },
+            {
+                english: "Like",
+                spanish: "Como"
+            },
+            {
+                english: "As",
+                spanish: "Como"
+            },
+            {
+                english: "Box",
+                spanish: "Caja"
+            },
+            {
+                english: "It is no wonder",
+                spanish: "No es de extrañar"
+            },
+            {
+                english: "Advertisement",
+                spanish: "Anuncio"
+            },
+            {
+                english: "Brand",
+                spanish: "Marca"
+            },
+            {
+                english: "Fee",
+                spanish: "Tarifa"
+            },
+            {
+                english: "Waste",
+                spanish: "Desperdicio"
+            },
+            {
+                english: "Washing",
+                spanish: "Lavado"
+            },
+            {
+                english: "Coach",
+                spanish: "Entrenador"
+            },
+            {
+                english: "Journey",
+                spanish: "Viaje"
+            },
+            {
+                english: "Book",
+                spanish: "Reservar"
+            },
+            {
+                english: "Reach",
+                spanish: "Alcanzar"
+            },
+            {
+                english: "Schedule",
+                spanish: "Horario"
+            },
+            {
+                english: "Ease",
+                spanish: "Facilidad"
+            },
+            {
+                english: "Outcomes",
+                spanish: "Resultados"
+            },
+            {
+                english: "Nowadays",
+                spanish: "Hoy en día"
+            },
+            {
+                english: "Although",
+                spanish: "Aunque"
+            },
+            {
+                english: "For",
+                spanish: "Para"
+            },
+            {
+                english: "Since",
+                spanish: "Desde"
+            },
+            {
+                english: "Busy",
+                spanish: "Ocupado"
+            },
+            {
+                english: "Basement",
+                spanish: "Sótano"
+            },
+            {
+                english: "As...as",
+                spanish: "Tan...como"
+            },
+            {
+                english: "Assignment",
+                spanish: "Tarea"
+            },
+            {
+                english: "In spite of",
+                spanish: "A pesar de"
+            },
+            {
+                english: "However",
+                spanish: "Sin embargo"
+            },
+            {
+                english: "Gathered",
+                spanish: "Reunido"
+            },
+            {
+                english: "Headlines",
+                spanish: "Titulares"
+            },
+            {
+                english: "Highway",
+                spanish: "Autopista"
+            },
+            {
+                english: "Huge",
+                spanish: "Enorme"
+            },
+            {
+                english: "Showed up",
+                spanish: "Apareció"
+            },
+            {
+                english: "Set up",
+                spanish: "Establecer"
+            },
+            {
+                english: "Put up",
+                spanish: "Poner"
+            },
+            {
+                english: "Show me up",
+                spanish: "Avergonzarme"
+            },
+            {
+                english: "Set out",
+                spanish: "Emprender"
+            },
+            {
+                english: "Rang up",
+                spanish: "Llamó por teléfono"
+            },
+            {
+                english: "Put out",
+                spanish: "Apagar"
+            },
+            {
+                english: "Set off",
+                spanish: "Partir"
+            },
+            {
+                english: "Ran out",
+                spanish: "Se acabó"
+            },
+            {
+                english: "Wear out",
+                spanish: "Desgastar"
+            },
+            {
+                english: "Wrapped up",
+                spanish: "Terminado"
+            },
+            {
+                english: "Turn up",
+                spanish: "Aparecer"
+            },
+            {
+                english: "Turn into",
+                spanish: "Convertirse en"
+            },
+            {
+                english: "Sign up",
+                spanish: "Inscribirse"
+            },
+            {
+                english: "Back of",
+                spanish: "Parte trasera"
+            },
+            {
+                english: "Apologise",
+                spanish: "Disculparse"
+            },
+            {
+                english: "Ties",
+                spanish: "Corbatas"
+            },
+            {
+                english: "Browsed",
+                spanish: "Navegado"
+            },
+            {
+                english: "Search engine",
+                spanish: "Motor de búsqueda"
+            },
+            {
+                english: "Reliable",
+                spanish: "Confiable"
+            },
+            {
+                english: "Cutting",
+                spanish: "Cortante"
+            },
+            {
+                english: "Up to date",
+                spanish: "Actualizado"
+            },
+            {
+                english: "Afraid",
+                spanish: "Asustado"
+            },
+            {
+                english: "Fright",
+                spanish: "Susto"
+            },
+            {
+                english: "Overcome",
+                spanish: "Superar"
+            },
+            {
+                english: "Spook",
+                spanish: "Asustar"
+            },
+            {
+                english: "Fear",
+                spanish: "Miedo"
+            },
+            {
+                english: "Lift",
+                spanish: "Levantar"
+            },
+            {
+                english: "Out of order",
+                spanish: "Fuera de servicio"
+            },
+            {
+                english: "To look forward to",
+                spanish: "Esperar con ilusión"
+            },
+            {
+                english: "Such as",
+                spanish: "Tales como"
+            },
+            {
+                english: "Hoaxes",
+                spanish: "Engaños"
+            },
+            {
+                english: "Made up",
+                spanish: "Inventado"
+            },
+            {
+                english: "Mermaids",
+                spanish: "Sirenas"
+            },
+            {
+                english: "Despite",
+                spanish: "A pesar de"
+            },
+            {
+                english: "Dismissed",
+                spanish: "Descartado"
+            },
+            {
+                english: "Muggy",
+                spanish: "Bochornoso"
+            },
+            {
+                english: "Hazy",
+                spanish: "Brumoso"
+            },
+            {
+                english: "Scorching",
+                spanish: "Abrasador"
+            },
+            {
+                english: "Mild",
+                spanish: "Suave"
+            },
+            {
+                english: "Damp",
+                spanish: "Húmedo"
+            },
+            {
+                english: "If I were you",
+                spanish: "Si yo fuera tú"
+            },
+            {
+                english: "Nippy",
+                spanish: "Fresco"
+            },
+            {
+                english: "Overcast",
+                spanish: "Nublado"
+            },
+            {
+                english: "Misty",
+                spanish: "Brumoso"
+            }
+        ];
+
+        // DOM elements
+        const wordElement = document.getElementById('word');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackElement = document.getElementById('feedback');
+        const nextButton = document.getElementById('next-btn');
+        const scoreElement = document.getElementById('score');
+        const languageIndicator = document.getElementById('language-indicator');
+
+        // Game state
+        let currentWord = null;
+        let currentLanguage = null;
+        let correctAnswer = null;
+        let score = 0;
+        let totalQuestions = 0;
+        let answered = false;
+
+        // Initialize the game
+        nextWord();
+
+        // Event listener for the next button
+        nextButton.addEventListener('click', nextWord);
+
+        // Function to display the next word
+        function nextWord() {
+            // Reset state
+            feedbackElement.textContent = '';
+            optionsContainer.innerHTML = '';
+            answered = false;
+
+            // Randomly select a word from vocabulary
+            const randomIndex = Math.floor(Math.random() * vocabulary.length);
+            currentWord = vocabulary[randomIndex];
+
+            // Randomly decide whether to show English or Spanish
+            currentLanguage = Math.random() < 0.5 ? 'english' : 'spanish';
+            const oppositeLanguage = currentLanguage === 'english' ? 'spanish' : 'english';
+
+            // Display the word in the selected language
+            wordElement.textContent = currentWord[currentLanguage];
+            
+            // Update language indicator
+            languageIndicator.textContent = `Question in ${currentLanguage.charAt(0).toUpperCase() + currentLanguage.slice(1)}`;
+
+            // Set the correct answer
+            correctAnswer = currentWord[oppositeLanguage];
+
+            // Generate options (including the correct answer and 2 random incorrect answers)
+            const options = [correctAnswer];
+            
+            // Add two random incorrect options
+            while (options.length < 3) {
+                const randomWordIndex = Math.floor(Math.random() * vocabulary.length);
+                if (randomWordIndex !== randomIndex) {
+                    const randomOption = vocabulary[randomWordIndex][oppositeLanguage];
+                    if (!options.includes(randomOption)) {
+                        options.push(randomOption);
+                    }
+                }
+            }
+
+            // Shuffle options
+            shuffleArray(options);
+
+            // Create option elements
+            options.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.textContent = option;
+                optionElement.addEventListener('click', () => checkAnswer(option, optionElement));
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        // Function to check the selected answer
+        function checkAnswer(selectedOption, optionElement) {
+            if (answered) return;
+            
+            answered = true;
+            totalQuestions++;
+
+            // Check if the answer is correct
+            const isCorrect = selectedOption === correctAnswer;
+            
+            // Update score if correct
+            if (isCorrect) {
+                score++;
+                feedbackElement.textContent = '¡Correcto! / Correct!';
+                optionElement.classList.add('correct');
+            } else {
+                feedbackElement.textContent = '¡Incorrecto! / Incorrect!';
+                optionElement.classList.add('incorrect');
+                
+                // Highlight the correct answer
+                const options = optionsContainer.querySelectorAll('.option');
+                options.forEach(opt => {
+                    if (opt.textContent === correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+
+            // Update score display
+            scoreElement.textContent = `Score: ${score}/${totalQuestions}`;
+        }
+
+        // Function to shuffle an array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+</body>
+</html>
