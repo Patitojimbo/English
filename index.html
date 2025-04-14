@@ -2,27 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>English-Spanish Vocabulary Practice</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 800px;
+            max-width: 90%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 1rem;
             background-color: #f5f5f5;
             color: #333;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 10 L33 25 L30 40 L27 25 Z' fill='%2378c26d'/%3E%3Cpath d='M30 10 C28 10 26 12 26 14 C26 16 28 18 30 18 C32 18 34 16 34 14 C34 12 32 10 30 10 Z' fill='%2378c26d'/%3E%3Cpath d='M26 22 L22 22 L24 26 L26 26 Z' fill='%2378c26d'/%3E%3Cpath d='M34 30 L38 30 L36 34 L34 34 Z' fill='%2378c26d'/%3E%3Cpath d='M24 36 L20 36 L22 40 L24 40 Z' fill='%2378c26d'/%3E%3C/svg%3E");
             background-repeat: repeat;
             background-position: center;
+            position: relative;
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                max-width: 800px;
+                padding: 20px;
+            }
         }
         .container {
             background-color: white;
             border-radius: 10px;
-            padding: 30px;
+            padding: 1.5rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border: 3px solid #78c26d;
             position: relative;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                padding: 30px;
+            }
         }
         .container::before, .container::after {
             content: '';
@@ -50,24 +66,42 @@
             text-align: center;
         }
         .word {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: #3498db;
+            word-wrap: break-word;
+        }
+        
+        @media (min-width: 768px) {
+            .word {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
         }
         .options-container {
             display: grid;
             grid-template-columns: 1fr;
             gap: 10px;
+            width: 100%;
         }
         .option {
-            padding: 15px;
+            padding: 12px;
             background-color: #f8f9fa;
             border: 2px solid #e9ecef;
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 18px;
+            font-size: 16px;
+            text-align: center;
+            word-wrap: break-word;
+        }
+        
+        @media (min-width: 768px) {
+            .option {
+                padding: 15px;
+                font-size: 18px;
+            }
         }
         .option:hover {
             background-color: #e9ecef;
@@ -91,17 +125,26 @@
         }
         .next-btn {
             display: block;
-            margin: 20px auto 0;
-            padding: 10px 20px;
+            margin: 15px auto 0;
+            padding: 8px 15px;
             background-color: #78c26d;
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
-            padding-left: 35px;
+            padding-left: 30px;
+        }
+        
+        @media (min-width: 768px) {
+            .next-btn {
+                margin: 20px auto 0;
+                padding: 10px 20px;
+                font-size: 16px;
+                padding-left: 35px;
+            }
         }
         .next-btn:before {
             content: '';
@@ -152,9 +195,258 @@
             font-style: italic;
             color: #6c757d;
         }
+        .streak-container {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .streak-count {
+            background-color: #78c26d;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        .points-container {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .points-count {
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-weight: bold;
+        }
+        .store-button {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .store-button:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 15px;
+            border: 3px solid #78c26d;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        @media (min-width: 768px) {
+            .modal-content {
+                margin: 15% auto;
+                padding: 20px;
+                width: 80%;
+            }
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-button:hover {
+            color: black;
+        }
+        .store-item {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+        }
+        
+        @media (min-width: 768px) {
+            .store-item {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        .store-item-info {
+            flex-grow: 1;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .store-item-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+        .store-item-description {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .store-item-price {
+            background-color: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        
+        @media (min-width: 768px) {
+            .store-item-info {
+                margin-bottom: 0;
+                text-align: left;
+            }
+            .store-item-name {
+                font-size: 18px;
+            }
+            .store-item-price {
+                margin-right: 10px;
+                margin-bottom: 0;
+            }
+        }
+        .buy-button {
+            background-color: #78c26d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .buy-button:hover {
+            background-color: #5da152;
+        }
+        .buy-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        /* Pets display styles */
+        .pets-container {
+            position: fixed;
+            right: 10px;
+            top: auto;
+            bottom: 10px;
+            transform: none;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .pet {
+            width: 45px;
+            height: 45px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border: 2px solid #78c26d;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .pets-container {
+                right: 20px;
+                top: 50%;
+                bottom: auto;
+                transform: translateY(-50%);
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .pet {
+                width: 60px;
+                height: 60px;
+            }
+        }
+        
+        .pet.active {
+            animation: bounce 2s infinite ease-in-out;
+            border: 3px solid #3498db;
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+        }
+        
+        .pet:not(.active) {
+            opacity: 0.6;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pet-cactus {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Cpath d='M25 5 L28 20 L25 35 L22 20 Z' fill='%2378c26d'/%3E%3Cpath d='M25 5 C23 5 21 7 21 9 C21 11 23 13 25 13 C27 13 29 11 29 9 C29 7 27 5 25 5 Z' fill='%2378c26d'/%3E%3Cpath d='M21 17 L17 17 L19 21 L21 21 Z' fill='%2378c26d'/%3E%3Cpath d='M29 25 L33 25 L31 29 L29 29 Z' fill='%2378c26d'/%3E%3Cpath d='M19 31 L15 31 L17 35 L19 35 Z' fill='%2378c26d'/%3E%3Cpath d='M25 35 L25 40 C25 42 27 45 25 50 C23 45 25 42 25 40 Z' fill='%23a67c52'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 80%;
+        }
+        
+        .pet-dog {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Cellipse cx='25' cy='30' rx='15' ry='12' fill='%23a67c52'/%3E%3Ccircle cx='25' cy='18' r='10' fill='%23a67c52'/%3E%3Ccircle cx='20' cy='15' r='2' fill='%23333'/%3E%3Ccircle cx='30' cy='15' r='2' fill='%23333'/%3E%3Cellipse cx='25' cy='20' rx='4' ry='2' fill='%23333'/%3E%3Cpath d='M15 12 L10 5 L12 12' fill='%23a67c52'/%3E%3Cpath d='M35 12 L40 5 L38 12' fill='%23a67c52'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 80%;
+        }
+        
+        .pet-duck {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Cellipse cx='25' cy='30' rx='15' ry='12' fill='%23f5f5dc'/%3E%3Ccircle cx='25' cy='18' r='10' fill='%23f5f5dc'/%3E%3Ccircle cx='22' cy='15' r='2' fill='%23333'/%3E%3Cpath d='M28 15 L35 12 L28 18' fill='%23f39c12'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 80%;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
     </style>
 </head>
 <body>
+    <!-- Pets container for displaying purchased pets -->
+    <div class="pets-container" id="pets-container"></div>
+    
     <div class="container">
         <h1>English-Spanish Vocabulary Practice</h1>
         
@@ -172,6 +464,27 @@
         </div>
         
         <div class="score" id="score">Score: 0/0</div>
+        <div class="streak-container">
+            <span>Daily Streak:</span>
+            <div class="streak-count" id="streak-count">0</div>
+        </div>
+        <div class="points-container">
+            <span>Points:</span>
+            <div class="points-count" id="points-count">0</div>
+            <button class="store-button" id="store-button">Store</button>
+        </div>
+        
+        <!-- Store Modal -->
+        <div id="store-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" id="close-store">&times;</span>
+                <h2>Points Store</h2>
+                <p>Use your points to purchase items:</p>
+                <div id="store-items">
+                    <!-- Store items will be added here by JavaScript -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1073,12 +1386,339 @@
         let score = 0;
         let totalQuestions = 0;
         let answered = false;
+        let streakCount = 0;
+        let lastLoginDate = null;
+        let activityCompletedToday = false;
+        let points = 0;
+        let consecutiveCorrectAnswers = 0; // Track consecutive correct answers for combo bonus
+        let activePetId = null; // Track which pet is currently active
+        
+        // Store items
+        const storeItems = [
+            {
+                id: 1,
+                name: "Cactus Pet",
+                description: "A cute cactus friend that multiplies your points by 2",
+                price: 50,
+                purchased: false
+            },
+            {
+                id: 2,
+                name: "Dog Pet",
+                description: "A loyal companion that gives you +6 bonus points",
+                price: 100,
+                purchased: false
+            },
+            {
+                id: 3,
+                name: "Duck Pet",
+                description: "A friendly duck that gives you +10 bonus points",
+                price: 250,
+                purchased: false
+            }
+        ];
+
+        // Load streak data from localStorage
+        function loadStreakData() {
+            const streakData = localStorage.getItem('vocabularyStreak');
+            if (streakData) {
+                const data = JSON.parse(streakData);
+                streakCount = data.count || 0;
+                lastLoginDate = data.lastLogin ? new Date(data.lastLogin) : null;
+                activityCompletedToday = data.activityCompletedToday || false;
+            }
+            updateStreakDisplay();
+        }
+
+        // Save streak data to localStorage
+        function saveStreakData() {
+            const data = {
+                count: streakCount,
+                lastLogin: new Date().toISOString(),
+                activityCompletedToday: activityCompletedToday
+            };
+            localStorage.setItem('vocabularyStreak', JSON.stringify(data));
+            updateStreakDisplay();
+        }
+        
+        // Load points data from localStorage
+        function loadPointsData() {
+            const pointsData = localStorage.getItem('vocabularyPoints');
+            if (pointsData) {
+                const data = JSON.parse(pointsData);
+                points = data.points || 0;
+                
+                // Load purchased items
+                if (data.purchasedItems) {
+                    data.purchasedItems.forEach(itemId => {
+                        const item = storeItems.find(item => item.id === itemId);
+                        if (item) {
+                            item.purchased = true;
+                        }
+                    });
+                }
+            }
+            updatePointsDisplay();
+        }
+
+        // Save points data to localStorage
+        function savePointsData() {
+            const purchasedItems = storeItems
+                .filter(item => item.purchased)
+                .map(item => item.id);
+                
+            const data = {
+                points: points,
+                purchasedItems: purchasedItems
+            };
+            localStorage.setItem('vocabularyPoints', JSON.stringify(data));
+            updatePointsDisplay();
+        }
+
+        // Update the streak display
+        function updateStreakDisplay() {
+            document.getElementById('streak-count').textContent = streakCount;
+        }
+        
+        // Update the points display
+        function updatePointsDisplay() {
+            document.getElementById('points-count').textContent = points;
+        }
+        
+        // Initialize the store
+        function initializeStore() {
+            const storeItemsContainer = document.getElementById('store-items');
+            storeItemsContainer.innerHTML = '';
+            
+            storeItems.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'store-item';
+                
+                const itemInfo = document.createElement('div');
+                itemInfo.className = 'store-item-info';
+                
+                const itemName = document.createElement('div');
+                itemName.className = 'store-item-name';
+                itemName.textContent = item.name;
+                
+                const itemDescription = document.createElement('div');
+                itemDescription.className = 'store-item-description';
+                itemDescription.textContent = item.description;
+                
+                itemInfo.appendChild(itemName);
+                itemInfo.appendChild(itemDescription);
+                
+                const itemPrice = document.createElement('div');
+                itemPrice.className = 'store-item-price';
+                itemPrice.textContent = `${item.price} pts`;
+                
+                const buyButton = document.createElement('button');
+                buyButton.className = 'buy-button';
+                
+                if (item.purchased) {
+                    buyButton.textContent = 'Purchased';
+                    buyButton.disabled = true;
+                } else {
+                    buyButton.textContent = 'Buy';
+                    buyButton.disabled = points < item.price;
+                    buyButton.addEventListener('click', () => purchaseItem(item));
+                }
+                
+                itemElement.appendChild(itemInfo);
+                itemElement.appendChild(itemPrice);
+                itemElement.appendChild(buyButton);
+                
+                storeItemsContainer.appendChild(itemElement);
+            });
+        }
+        
+        // Purchase an item
+        function purchaseItem(item) {
+            if (points >= item.price && !item.purchased) {
+                points -= item.price;
+                item.purchased = true;
+                savePointsData();
+                initializeStore();
+                
+                // Show purchase confirmation
+                alert(`You have purchased ${item.name}!`);
+                
+                // Display the pet on the side of the screen
+                if (item.name.includes('Pet')) {
+                    displayPet(item);
+                }
+            }
+        }
+        
+        // Display a pet on the side of the screen
+        function displayPet(item) {
+            const petsContainer = document.getElementById('pets-container');
+            
+            // Create pet element
+            const petElement = document.createElement('div');
+            petElement.className = 'pet';
+            petElement.dataset.petId = item.id;
+            
+            // Add specific class based on pet type
+            if (item.name.includes('Cactus')) {
+                petElement.classList.add('pet-cactus');
+            } else if (item.name.includes('Dog')) {
+                petElement.classList.add('pet-dog');
+            } else if (item.name.includes('Duck')) {
+                petElement.classList.add('pet-duck');
+            }
+            
+            // Set active class if this is the active pet
+            if (activePetId === item.id) {
+                petElement.classList.add('active');
+            }
+            
+            // Add click event to toggle active status
+            petElement.addEventListener('click', () => toggleActivePet(item.id));
+            
+            // Add pet to container
+            petsContainer.appendChild(petElement);
+        }
+        
+        // Toggle active pet
+        function toggleActivePet(petId) {
+            // If clicking the already active pet, deactivate it
+            if (activePetId === petId) {
+                activePetId = null;
+            } else {
+                // Otherwise, set this pet as active
+                activePetId = petId;
+            }
+            
+            // Save active pet to localStorage
+            saveActivePet();
+            
+            // Update pet display
+            updatePetsDisplay();
+        }
+        
+        // Save active pet to localStorage
+        function saveActivePet() {
+            localStorage.setItem('vocabularyActivePet', activePetId);
+        }
+        
+        // Load active pet from localStorage
+        function loadActivePet() {
+            const savedActivePet = localStorage.getItem('vocabularyActivePet');
+            if (savedActivePet) {
+                activePetId = parseInt(savedActivePet);
+            }
+        }
+        
+        // Update all pets display to reflect active status
+        function updatePetsDisplay() {
+            const petElements = document.querySelectorAll('.pet');
+            petElements.forEach(pet => {
+                const petId = parseInt(pet.dataset.petId);
+                if (petId === activePetId) {
+                    pet.classList.add('active');
+                } else {
+                    pet.classList.remove('active');
+                }
+            });
+        }
+
+        // Check and update streak
+        function checkStreak() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (!lastLoginDate) {
+                // First time user
+                lastLoginDate = today;
+                saveStreakData();
+                return;
+            }
+
+            const lastLogin = new Date(lastLoginDate);
+            lastLogin.setHours(0, 0, 0, 0);
+            
+            const timeDiff = today.getTime() - lastLogin.getTime();
+            const dayDiff = timeDiff / (1000 * 3600 * 24);
+
+            if (dayDiff === 0) {
+                // Same day login, no streak change
+                if (!activityCompletedToday) {
+                    // User hasn't completed an activity today yet
+                    return;
+                }
+            } else if (dayDiff === 1) {
+                // Next day login
+                activityCompletedToday = false;
+                lastLoginDate = today;
+                saveStreakData();
+            } else {
+                // More than one day has passed, reset streak
+                streakCount = 0;
+                activityCompletedToday = false;
+                lastLoginDate = today;
+                saveStreakData();
+            }
+        }
+
+        // Mark activity as completed for today
+        function markActivityCompleted() {
+            if (!activityCompletedToday) {
+                activityCompletedToday = true;
+                streakCount++;
+                saveStreakData();
+            }
+        }
 
         // Initialize the game
+        loadStreakData();
+        loadPointsData();
+        loadActivePet();
+        checkStreak();
+        displayPurchasedPets();
         nextWord();
+        
+        // Display all purchased pets
+        function displayPurchasedPets() {
+            // Clear pets container first
+            const petsContainer = document.getElementById('pets-container');
+            petsContainer.innerHTML = '';
+            
+            // Display all purchased pets
+            storeItems.forEach(item => {
+                if (item.purchased && item.name.includes('Pet')) {
+                    displayPet(item);
+                }
+            });
+            
+            // Update pets display to show active status
+            updatePetsDisplay();
+        }
 
         // Event listener for the next button
         nextButton.addEventListener('click', nextWord);
+        
+        // Store modal elements
+        const storeModal = document.getElementById('store-modal');
+        const storeButton = document.getElementById('store-button');
+        const closeStore = document.getElementById('close-store');
+        
+        // Event listeners for store modal
+        storeButton.addEventListener('click', () => {
+            initializeStore();
+            storeModal.style.display = 'block';
+        });
+        
+        closeStore.addEventListener('click', () => {
+            storeModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === storeModal) {
+                storeModal.style.display = 'none';
+            }
+        });
 
         // Function to display the next word
         function nextWord() {
@@ -1144,9 +1784,45 @@
             // Update score if correct
             if (isCorrect) {
                 score++;
-                feedbackElement.textContent = '¡Correcto! / Correct!';
+                // Increment consecutive correct answers counter
+                consecutiveCorrectAnswers++;
+                
+                // Award points for correct answer
+                let pointsEarned = 2;
+                let bonusText = "";
+                
+                // Add combo bonus point for every 5 consecutive correct answers
+                if (consecutiveCorrectAnswers % 5 === 0) {
+                    pointsEarned += 1; // Add bonus point for combo
+                    bonusText += " (Combo +1 bonus)";
+                }
+                
+                // Check for active pet abilities
+                const activePet = storeItems.find(item => item.id === activePetId && item.purchased);
+                
+                // Apply active pet abilities
+                if (activePet) {
+                    if (activePet.id === 1) { // Cactus
+                        pointsEarned *= 2; // Cactus multiplies points by 2
+                        bonusText += " (Cactus x2 bonus)";
+                    } else if (activePet.id === 2) { // Dog
+                        pointsEarned += 6; // Dog adds 6 points
+                        bonusText += " (Dog +6 bonus)";
+                    } else if (activePet.id === 3) { // Duck
+                        pointsEarned += 10; // Duck adds 10 points
+                        bonusText += " (Duck +10 bonus)";
+                    }
+                }
+                
+                points += pointsEarned;
+                savePointsData();
+                
+                feedbackElement.textContent = `¡Correcto! / Correct! (+${pointsEarned} points)${bonusText}`;
                 optionElement.classList.add('correct');
             } else {
+                // Reset consecutive correct answers counter on wrong answer
+                consecutiveCorrectAnswers = 0;
+                
                 feedbackElement.textContent = '¡Incorrecto! / Incorrect!';
                 optionElement.classList.add('incorrect');
                 
@@ -1161,6 +1837,9 @@
 
             // Update score display
             scoreElement.textContent = `Score: ${score}/${totalQuestions}`;
+            
+            // Mark activity as completed for streak
+            markActivityCompleted();
         }
 
         // Function to shuffle an array (Fisher-Yates algorithm)
