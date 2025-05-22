@@ -236,29 +236,70 @@
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 5px 15px;
+            padding: 8px 15px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
+            -webkit-tap-highlight-color: rgba(0,0,0,0); /* Remove tap highlight on mobile */
+            position: relative;
+            z-index: 10; /* Ensure button is above other elements */
+            user-select: none; /* Prevent text selection */
+        }
+        
+        @media (max-width: 767px) {
+            .store-button {
+                padding: 10px 20px; /* Larger touch target on mobile */
+                font-size: 16px; /* Larger text on mobile */
+                margin-left: 5px;
+            }
         }
         .store-button:hover {
             background-color: #e67e22;
             transform: scale(1.05);
         }
+        .mode-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            position: relative;
+            z-index: 10;
+            user-select: none;
+            margin-left: 5px;
+        }
+        
+        @media (max-width: 767px) {
+            .mode-button {
+                padding: 10px 20px;
+                font-size: 16px;
+                margin-top: 10px;
+                width: 100%;
+            }
+        }
+        .mode-button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 100;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
             background-color: rgba(0,0,0,0.4);
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
         }
         .modal-content {
             background-color: white;
-            margin: 10% auto;
+            margin: 15% auto;
             padding: 15px;
             border: 3px solid #78c26d;
             border-radius: 10px;
@@ -266,6 +307,8 @@
             max-width: 600px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             position: relative;
+            max-height: 80vh; /* Limit height on mobile */
+            overflow-y: auto; /* Allow scrolling within modal */
         }
         
         @media (min-width: 768px) {
@@ -273,6 +316,15 @@
                 margin: 15% auto;
                 padding: 20px;
                 width: 80%;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .modal-content {
+                margin: 10% auto;
+                padding: 15px 10px;
+                width: 95%;
+                max-height: 85vh;
             }
         }
         .close-button {
@@ -288,11 +340,12 @@
         .store-item {
             display: flex;
             flex-direction: column;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 15px;
+            margin: 15px 0;
             background-color: #f8f9fa;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 1px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         
         @media (min-width: 768px) {
@@ -300,6 +353,8 @@
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
+                padding: 10px;
+                margin: 10px 0;
             }
         }
         .store-item-info {
@@ -344,10 +399,12 @@
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 5px 15px;
+            padding: 8px 15px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
+            -webkit-tap-highlight-color: rgba(0,0,0,0); /* Remove tap highlight on mobile */
+            user-select: none; /* Prevent text selection */
         }
         .buy-button:hover {
             background-color: #5da152;
@@ -355,6 +412,15 @@
         .buy-button:disabled {
             background-color: #cccccc;
             cursor: not-allowed;
+        }
+        
+        @media (max-width: 767px) {
+            .buy-button {
+                padding: 12px 20px; /* Larger touch target on mobile */
+                font-size: 16px; /* Larger text on mobile */
+                margin-top: 10px;
+                width: 100%; /* Full width on mobile */
+            }
         }
         
         /* Pets display styles */
@@ -416,6 +482,41 @@
             50% { transform: translateY(-10px); }
         }
         
+        /* Category selector styles */
+        .category-container {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-selector {
+            padding: 8px 15px;
+            border: 2px solid #78c26d;
+            border-radius: 5px;
+            background-color: white;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-selector:hover {
+            border-color: #5da152;
+        }
+        
+        @media (max-width: 767px) {
+            .category-selector {
+                padding: 10px 15px;
+                font-size: 16px;
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+        
         .pet-cactus {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Cpath d='M25 5 L28 20 L25 35 L22 20 Z' fill='%2378c26d'/%3E%3Cpath d='M25 5 C23 5 21 7 21 9 C21 11 23 13 25 13 C27 13 29 11 29 9 C29 7 27 5 25 5 Z' fill='%2378c26d'/%3E%3Cpath d='M21 17 L17 17 L19 21 L21 21 Z' fill='%2378c26d'/%3E%3Cpath d='M29 25 L33 25 L31 29 L29 29 Z' fill='%2378c26d'/%3E%3Cpath d='M19 31 L15 31 L17 35 L19 35 Z' fill='%2378c26d'/%3E%3Cpath d='M25 35 L25 40 C25 42 27 45 25 50 C23 45 25 42 25 40 Z' fill='%23a67c52'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
@@ -440,6 +541,41 @@
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
+        }
+        
+        /* Category selector styles */
+        .category-container {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-selector {
+            padding: 8px 15px;
+            border: 2px solid #78c26d;
+            border-radius: 5px;
+            background-color: white;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-selector:hover {
+            border-color: #5da152;
+        }
+        
+        @media (max-width: 767px) {
+            .category-selector {
+                padding: 10px 15px;
+                font-size: 16px;
+                width: 100%;
+                max-width: 200px;
+            }
         }
     </style>
 </head>
@@ -472,6 +608,15 @@
             <span>Points:</span>
             <div class="points-count" id="points-count">0</div>
             <button class="store-button" id="store-button">Store</button>
+            <button class="mode-button" id="mode-button">Regular Mode</button>
+        </div>
+        
+        <!-- Category Selection -->
+        <div class="category-container">
+            <span>Category:</span>
+            <select id="category-selector" class="category-selector">
+                <!-- Categories will be populated by JavaScript -->
+            </select>
         </div>
         
         <!-- Store Modal -->
@@ -487,88 +632,120 @@
         </div>
     </div>
 
+    <!-- Irregular verbs data is now included directly in this file -->
     <script>
-        // Vocabulary data with English and Spanish pairs
+        // Vocabulary data with English and Spanish pairs organized by categories
+        // Define categories for vocabulary words
+        const categories = [
+            { id: 'all', name: 'All Words' },
+            { id: 'common', name: 'Common Phrases' },
+            { id: 'travel', name: 'Travel & Directions' },
+            { id: 'daily', name: 'Daily Life' }
+        ];
+        
+        // Track active category
+        let activeCategory = 'all';
+        
         const vocabulary = [
             {
                 english: "To give a hand",
-                spanish: "Dar un golpe de mano"
+                spanish: "Dar un golpe de mano",
+                category: "common"
             },
             {
                 english: "If I were you",
-                spanish: "Si yo fuera tu"
+                spanish: "Si yo fuera tu",
+                category: "common"
             },
             {
                 english: "Come as a surprise",
-                spanish: "Ha sido una sorpresa"
+                spanish: "Ha sido una sorpresa",
+                category: "common"
             },
             {
                 english: "Had better",
-                spanish: "Más vale"
+                spanish: "Más vale",
+                category: "common"
             },
             {
                 english: "Get rid of",
-                spanish: "Deshacerse de"
+                spanish: "Deshacerse de",
+                category: "daily"
             },
             {
                 english: "Hear",
-                spanish: "Oír"
+                spanish: "Oír",
+                category: "daily"
             },
             {
                 english: "Listen",
-                spanish: "Escuchar"
+                spanish: "Escuchar",
+                category: "daily"
             },
             {
                 english: "Pretty",
-                spanish: "Bonito"
+                spanish: "Bonito",
+                category: "common"
             },
             {
                 english: "In a row",
-                spanish: "En fila"
+                spanish: "En fila",
+                category: "common"
             },
             {
                 english: "Comes from",
-                spanish: "Proviene de"
+                spanish: "Proviene de",
+                category: "common"
             },
             {
                 english: "Booth",
-                spanish: "Cabina"
+                spanish: "Cabina",
+                category: "daily"
             },
             {
                 english: "Faid",
-                spanish: "Desvanecido"
+                spanish: "Desvanecido",
+                category: "common"
             },
             {
                 english: "Useful",
-                spanish: "Útil"
+                spanish: "Útil",
+                category: "common"
             },
             {
                 english: "Go to",
-                spanish: "Ir a"
+                spanish: "Ir a",
+                category: "travel"
             },
             {
                 english: "Away",
-                spanish: "Lejos"
+                spanish: "Lejos",
+                category: "travel"
             },
             {
                 english: "Hazard",
-                spanish: "Peligro"
+                spanish: "Peligro",
+                category: "common"
             },
             {
                 english: "Choking",
-                spanish: "Asfixia"
+                spanish: "Asfixia",
+                category: "daily"
             },
             {
                 english: "Railing",
-                spanish: "Barandilla"
+                spanish: "Barandilla",
+                category: "daily"
             },
             {
                 english: "Sightseeing",
-                spanish: "Turismo"
+                spanish: "Turismo",
+                category: "travel"
             },
             {
                 english: "Backyard",
-                spanish: "Patio trasero"
+                spanish: "Patio trasero",
+                category: "daily"
             },
             {
                 english: "Belongings",
@@ -1379,6 +1556,103 @@
         const scoreElement = document.getElementById('score');
         const languageIndicator = document.getElementById('language-indicator');
 
+        // Irregular verbs data with three forms: base, past, and participle (all in English)
+        const irregularVerbs = [
+            { base: "Arise", past: "Arose", participle: "Arisen" },
+            { base: "Be", past: "Was/Were", participle: "Been" },
+            { base: "Bear", past: "Bore", participle: "Born/Borne" },
+            { base: "Beat", past: "Beat", participle: "Beaten" },
+            { base: "Become", past: "Became", participle: "Become" },
+            { base: "Begin", past: "Began", participle: "Begun" },
+            { base: "Bend", past: "Bent", participle: "Bent" },
+            { base: "Bet", past: "Bet", participle: "Bet" },
+            { base: "Bite", past: "Bit", participle: "Bitten" },
+            { base: "Blow", past: "Blew", participle: "Blown" },
+            { base: "Break", past: "Broke", participle: "Broken" },
+            { base: "Bring", past: "Brought", participle: "Brought" },
+            { base: "Build", past: "Built", participle: "Built" },
+            { base: "Buy", past: "Bought", participle: "Bought" },
+            { base: "Catch", past: "Caught", participle: "Caught" },
+            { base: "Choose", past: "Chose", participle: "Chosen" },
+            { base: "Come", past: "Came", participle: "Come" },
+            { base: "Cost", past: "Cost", participle: "Cost" },
+            { base: "Cut", past: "Cut", participle: "Cut" },
+            { base: "Do", past: "Did", participle: "Done" },
+            { base: "Draw", past: "Drew", participle: "Drawn" },
+            { base: "Drink", past: "Drank", participle: "Drunk" },
+            { base: "Drive", past: "Drove", participle: "Driven" },
+            { base: "Eat", past: "Ate", participle: "Eaten" },
+            { base: "Fall", past: "Fell", participle: "Fallen" },
+            { base: "Feed", past: "Fed", participle: "Fed" },
+            { base: "Feel", past: "Felt", participle: "Felt" },
+            { base: "Fight", past: "Fought", participle: "Fought" },
+            { base: "Find", past: "Found", participle: "Found" },
+            { base: "Fly", past: "Flew", participle: "Flown" },
+            { base: "Forget", past: "Forgot", participle: "Forgotten" },
+            { base: "Forgive", past: "Forgave", participle: "Forgiven" },
+            { base: "Freeze", past: "Froze", participle: "Frozen" },
+            { base: "Get", past: "Got", participle: "Got/Gotten" },
+            { base: "Give", past: "Gave", participle: "Given" },
+            { base: "Go", past: "Went", participle: "Gone" },
+            { base: "Grow", past: "Grew", participle: "Grown" },
+            { base: "Hang", past: "Hung", participle: "Hung" },
+            { base: "Have", past: "Had", participle: "Had" },
+            { base: "Hear", past: "Heard", participle: "Heard" },
+            { base: "Hide", past: "Hid", participle: "Hidden" },
+            { base: "Hit", past: "Hit", participle: "Hit" },
+            { base: "Hold", past: "Held", participle: "Held" },
+            { base: "Hurt", past: "Hurt", participle: "Hurt" },
+            { base: "Keep", past: "Kept", participle: "Kept" },
+            { base: "Know", past: "Knew", participle: "Known" },
+            { base: "Lay", past: "Laid", participle: "Laid" },
+            { base: "Lead", past: "Led", participle: "Led" },
+            { base: "Leave", past: "Left", participle: "Left" },
+            { base: "Lend", past: "Lent", participle: "Lent" },
+            { base: "Let", past: "Let", participle: "Let" },
+            { base: "Lie", past: "Lay", participle: "Lain" },
+            { base: "Light", past: "Lit", participle: "Lit" },
+            { base: "Lose", past: "Lost", participle: "Lost" },
+            { base: "Make", past: "Made", participle: "Made" },
+            { base: "Mean", past: "Meant", participle: "Meant" },
+            { base: "Meet", past: "Met", participle: "Met" },
+            { base: "Pay", past: "Paid", participle: "Paid" },
+            { base: "Put", past: "Put", participle: "Put" },
+            { base: "Read", past: "Read", participle: "Read" },
+            { base: "Ride", past: "Rode", participle: "Ridden" },
+            { base: "Ring", past: "Rang", participle: "Rung" },
+            { base: "Rise", past: "Rose", participle: "Risen" },
+            { base: "Run", past: "Ran", participle: "Run" },
+            { base: "Say", past: "Said", participle: "Said" },
+            { base: "See", past: "Saw", participle: "Seen" },
+            { base: "Sell", past: "Sold", participle: "Sold" },
+            { base: "Send", past: "Sent", participle: "Sent" },
+            { base: "Set", past: "Set", participle: "Set" },
+            { base: "Shake", past: "Shook", participle: "Shaken" },
+            { base: "Shine", past: "Shone", participle: "Shone" },
+            { base: "Shoot", past: "Shot", participle: "Shot" },
+            { base: "Show", past: "Showed", participle: "Shown" },
+            { base: "Sing", past: "Sang", participle: "Sung" },
+            { base: "Sink", past: "Sank", participle: "Sunk" },
+            { base: "Sit", past: "Sat", participle: "Sat" },
+            { base: "Sleep", past: "Slept", participle: "Slept" },
+            { base: "Speak", past: "Spoke", participle: "Spoken" },
+            { base: "Spend", past: "Spent", participle: "Spent" },
+            { base: "Stand", past: "Stood", participle: "Stood" },
+            { base: "Steal", past: "Stole", participle: "Stolen" },
+            { base: "Swim", past: "Swam", participle: "Swum" },
+            { base: "Take", past: "Took", participle: "Taken" },
+            { base: "Teach", past: "Taught", participle: "Taught" },
+            { base: "Tear", past: "Tore", participle: "Torn" },
+            { base: "Tell", past: "Told", participle: "Told" },
+            { base: "Think", past: "Thought", participle: "Thought" },
+            { base: "Throw", past: "Threw", participle: "Thrown" },
+            { base: "Understand", past: "Understood", participle: "Understood" },
+            { base: "Wake", past: "Woke", participle: "Woken" },
+            { base: "Wear", past: "Wore", participle: "Worn" },
+            { base: "Win", past: "Won", participle: "Won" },
+            { base: "Write", past: "Wrote", participle: "Written" }
+        ];
+        
         // Game state
         let currentWord = null;
         let currentLanguage = null;
@@ -1392,6 +1666,7 @@
         let points = 0;
         let consecutiveCorrectAnswers = 0; // Track consecutive correct answers for combo bonus
         let activePetId = null; // Track which pet is currently active
+        let isIrregularVerbMode = false; // Start with regular vocabulary mode
         
         // Store items
         const storeItems = [
@@ -1670,13 +1945,76 @@
             }
         }
 
+        // Initialize the category selector
+        function initializeCategorySelector() {
+            const categorySelector = document.getElementById('category-selector');
+            categorySelector.innerHTML = '';
+            
+            // Add all categories to the selector
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.id;
+                option.textContent = category.name;
+                categorySelector.appendChild(option);
+            });
+            
+            // Set the active category
+            categorySelector.value = activeCategory;
+            
+            // Add event listener for category change
+            categorySelector.addEventListener('change', function() {
+                activeCategory = this.value;
+                saveActiveCategory();
+                nextWord();
+            });
+        }
+        
+        // Save active category to localStorage
+        function saveActiveCategory() {
+            localStorage.setItem('vocabularyActiveCategory', activeCategory);
+        }
+        
+        // Load active category from localStorage
+        function loadActiveCategory() {
+            const savedCategory = localStorage.getItem('vocabularyActiveCategory');
+            if (savedCategory) {
+                activeCategory = savedCategory;
+            }
+        }
+        
         // Initialize the game
         loadStreakData();
         loadPointsData();
         loadActivePet();
+        loadActiveCategory();
         checkStreak();
         displayPurchasedPets();
+        initializeCategorySelector();
         nextWord();
+        
+        // Function to toggle between regular vocabulary and irregular verbs mode
+        function toggleMode() {
+            isIrregularVerbMode = !isIrregularVerbMode;
+            const modeButton = document.getElementById('mode-button');
+            
+            if (isIrregularVerbMode) {
+                modeButton.textContent = 'Irregular Verbs Mode';
+                modeButton.style.backgroundColor = '#e74c3c';
+                // Update title to reflect the irregular verbs mode
+                document.title = 'English Irregular Verbs Practice';
+            } else {
+                modeButton.textContent = 'Regular Mode';
+                modeButton.style.backgroundColor = '#3498db';
+                // Restore original title
+                document.title = 'English-Spanish Vocabulary Practice';
+            }
+            
+            // Load a new word from the appropriate list
+            nextWord();
+        }
+        
+        // Add event listener for mode toggle button
+        document.getElementById('mode-button').addEventListener('click', toggleMode);
         
         // Display all purchased pets
         function displayPurchasedPets() {
@@ -1704,17 +2042,34 @@
         const closeStore = document.getElementById('close-store');
         
         // Event listeners for store modal
-        storeButton.addEventListener('click', () => {
+        storeButton.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default behavior
+            e.stopPropagation(); // Stop event propagation
             initializeStore();
             storeModal.style.display = 'block';
         });
         
-        closeStore.addEventListener('click', () => {
+        // Add touch event for mobile devices
+        storeButton.addEventListener('touchend', function(e) {
+            e.preventDefault(); // Prevent default behavior
+            e.stopPropagation(); // Stop event propagation
+            initializeStore();
+            storeModal.style.display = 'block';
+        });
+        
+        closeStore.addEventListener('click', function() {
             storeModal.style.display = 'none';
         });
         
         // Close modal when clicking outside of it
-        window.addEventListener('click', (event) => {
+        window.addEventListener('click', function(event) {
+            if (event.target === storeModal) {
+                storeModal.style.display = 'none';
+            }
+        });
+        
+        // Add touch event for closing modal on mobile
+        window.addEventListener('touchend', function(event) {
             if (event.target === storeModal) {
                 storeModal.style.display = 'none';
             }
@@ -1727,48 +2082,109 @@
             optionsContainer.innerHTML = '';
             answered = false;
 
-            // Randomly select a word from vocabulary
-            const randomIndex = Math.floor(Math.random() * vocabulary.length);
-            currentWord = vocabulary[randomIndex];
-
-            // Randomly decide whether to show English or Spanish
-            currentLanguage = Math.random() < 0.5 ? 'english' : 'spanish';
-            const oppositeLanguage = currentLanguage === 'english' ? 'spanish' : 'english';
-
-            // Display the word in the selected language
-            wordElement.textContent = currentWord[currentLanguage];
+            // Select the appropriate word list based on mode
+            let wordList = isIrregularVerbMode ? irregularVerbs : vocabulary;
             
-            // Update language indicator
-            languageIndicator.textContent = `Question in ${currentLanguage.charAt(0).toUpperCase() + currentLanguage.slice(1)}`;
-
-            // Set the correct answer
-            correctAnswer = currentWord[oppositeLanguage];
-
-            // Generate options (including the correct answer and 2 random incorrect answers)
-            const options = [correctAnswer];
-            
-            // Add two random incorrect options
-            while (options.length < 3) {
-                const randomWordIndex = Math.floor(Math.random() * vocabulary.length);
-                if (randomWordIndex !== randomIndex) {
-                    const randomOption = vocabulary[randomWordIndex][oppositeLanguage];
-                    if (!options.includes(randomOption)) {
-                        options.push(randomOption);
-                    }
+            // Filter words by category if not in 'all' category and not in irregular verb mode
+            if (activeCategory !== 'all' && !isIrregularVerbMode) {
+                wordList = vocabulary.filter(word => word.category === activeCategory);
+                
+                // If no words in this category, fallback to all words
+                if (wordList.length === 0) {
+                    wordList = vocabulary;
                 }
             }
+            
+            // Randomly select a word from the filtered list
+            const randomIndex = Math.floor(Math.random() * wordList.length);
+            currentWord = wordList[randomIndex];
 
-            // Shuffle options
-            shuffleArray(options);
+            if (isIrregularVerbMode) {
+                // For irregular verbs mode, randomly choose which form to show (base, past, or participle)
+                const verbForms = ['base', 'past', 'participle'];
+                const randomFormIndex = Math.floor(Math.random() * 3);
+                const questionForm = verbForms[randomFormIndex];
+                
+                // Randomly select which form to ask for
+                const remainingForms = verbForms.filter(form => form !== questionForm);
+                const answerFormIndex = Math.floor(Math.random() * 2);
+                const answerForm = remainingForms[answerFormIndex];
+                
+                // Display the question form
+                wordElement.textContent = currentWord[questionForm];
+                
+                 // Update language indicator to show which verb form is being asked
+                languageIndicator.textContent = `Match the time of the irregular verb`;
+                
+                // Set the correct answer
+                correctAnswer = currentWord[answerForm];
+                
+                // Generate options (including the correct answer and 2 random incorrect answers)
+                const options = [correctAnswer];
+                
+                // Add two random incorrect options from other verbs with the same form
+                while (options.length < 3) {
+                    const randomVerbIndex = Math.floor(Math.random() * irregularVerbs.length);
+                    if (randomVerbIndex !== randomIndex) {
+                        const randomOption = irregularVerbs[randomVerbIndex][answerForm];
+                        if (!options.includes(randomOption)) {
+                            options.push(randomOption);
+                        }
+                    }
+                }
+                
+                // Shuffle options
+                shuffleArray(options);
+                
+                // Create option elements
+                options.forEach(option => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'option';
+                    optionElement.textContent = option;
+                    optionElement.addEventListener('click', () => checkAnswer(option, optionElement));
+                    optionsContainer.appendChild(optionElement);
+                });
+            } else {
+                // Regular vocabulary mode (English-Spanish)
+                // Randomly decide whether to show English or Spanish
+                currentLanguage = Math.random() < 0.5 ? 'english' : 'spanish';
+                const oppositeLanguage = currentLanguage === 'english' ? 'spanish' : 'english';
 
-            // Create option elements
-            options.forEach(option => {
-                const optionElement = document.createElement('div');
-                optionElement.className = 'option';
-                optionElement.textContent = option;
-                optionElement.addEventListener('click', () => checkAnswer(option, optionElement));
-                optionsContainer.appendChild(optionElement);
-            });
+                // Display the word in the selected language
+                wordElement.textContent = currentWord[currentLanguage];
+                
+                // Update language indicator
+                languageIndicator.textContent = `Question in ${currentLanguage.charAt(0).toUpperCase() + currentLanguage.slice(1)}`;
+
+                // Set the correct answer
+                correctAnswer = currentWord[oppositeLanguage];
+
+                // Generate options (including the correct answer and 2 random incorrect answers)
+                const options = [correctAnswer];
+                
+                // Add two random incorrect options
+                while (options.length < 3) {
+                    const randomWordIndex = Math.floor(Math.random() * vocabulary.length);
+                    if (randomWordIndex !== randomIndex) {
+                        const randomOption = vocabulary[randomWordIndex][oppositeLanguage];
+                        if (!options.includes(randomOption)) {
+                            options.push(randomOption);
+                        }
+                    }
+                }
+
+                // Shuffle options
+                shuffleArray(options);
+
+                // Create option elements
+                options.forEach(option => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'option';
+                    optionElement.textContent = option;
+                    optionElement.addEventListener('click', () => checkAnswer(option, optionElement));
+                    optionsContainer.appendChild(optionElement);
+                });
+            }
         }
 
         // Function to check the selected answer
